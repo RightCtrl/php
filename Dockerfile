@@ -86,7 +86,6 @@ RUN sed -i \
         -e 's#^;mbstring.http_output.*#mbstring.http_output = SJIS , UTF-8#' \
         /etc/php.ini
 
-RUN yum -y --skip-broken install 
 
 
 EXPOSE 80
