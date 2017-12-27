@@ -13,8 +13,7 @@ RUN wget -q http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 RUN rpm -Uvh remi-release-7.rpm
 RUN yum-config-manager --enable remi-php70
 RUN yum update -y
-RUN yum install -y httpd
-RUN yum install -y --skip-broken php php-devel php-mysqlnd php-common php-pdo php-mbstring php-xml php-imap php-curl
+RUN yum install -y --skip-broken httpd php mod_php php-devel php-mysqlnd php-common php-pdo php-gd php-cli php-mcrypt php-mbstring php-xml php-imap php-curl php-soap
 ENV TZ=Asia/Tokyo
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN mkdir -p $dir${cname}_$servn
@@ -68,6 +67,7 @@ RUN sed -i \
         -e 's/^error_reporting = .*/error_reporting = E_WARNING \& ~E_NOTICE \& ~E_DEPRECATED/' \
         -e 's/^memory_limit = .*/memory_limit = 1024M/' \
         -e 's/^max_execution_time = .*/max_execution_time = 0/' \
+        -e 's/^session.gc_maxlifetime = .*/session.gc_maxlifetime = 2880/' \
         -e 's#^;error_log = syslog#;error_log = syslog\nerror_log = /data/php/log/scripts-error.log#' \
         -e 's/^file_uploads = .*/file_uploads = On/' \
         -e 's/^upload_max_filesize = .*/upload_max_filesize = 50M/' \
@@ -86,7 +86,7 @@ RUN sed -i \
         -e 's#^;mbstring.http_output.*#mbstring.http_output = SJIS , UTF-8#' \
         /etc/php.ini
 
-RUN yum -y --skip-broken install php-soap
+RUN yum -y --skip-broken install 
 
 
 EXPOSE 80
