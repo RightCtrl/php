@@ -1,11 +1,5 @@
 FROM rightctrl/centos
-MAINTAINER RightCtrl <AI@RightCtrl.com>
-#DOMAIN INFORMATION
-ENV servn example.com
-ENV cname www
-ENV dir /var/www/
-ENV user apache
-ENV listen *
+MAINTAINER RightCtrl <support@RightCtrl.com>
 #Virtual hosting
 RUN yum install -y httpd epel-release wget
 RUN wget -q http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
@@ -13,47 +7,8 @@ RUN wget -q http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 RUN rpm -Uvh remi-release-7.rpm
 RUN yum-config-manager --enable remi-php70
 RUN yum update -y
-RUN yum install -y --skip-broken httpd php mod_php php-devel php-mysqlnd php-common php-pdo php-gd php-cli php-mcrypt php-mbstring php-xml php-imap php-curl php-soap
-ENV TZ=Asia/Tokyo
-RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
-RUN mkdir -p $dir${cname}_$servn
-RUN chown -R ${user}:${user}  $dir${cname}_$servn
-RUN chmod -R 755  $dir${cname}_$servn
-RUN mkdir /var/log/${cname}_$servn
-RUN mkdir /etc/httpd/sites-available
-RUN mkdir /etc/httpd/sites-enabled
-RUN mkdir -p ${dir}${cname}_${servn}/logs
-RUN mkdir -p ${dir}${cname}_${servn}/public_html
-RUN printf "IncludeOptional sites-enabled/${cname}_$servn.conf" >> /etc/httpd/conf/httpd.conf
-####
-RUN printf "#### $cname $servn \n\
-<VirtualHost ${listen}:80> \n\
-ServerName ${cname}.${servn} \n\
-ServerAlias ${cname} \n\
-DocumentRoot ${dir}${cname}_${servn}/public_html \n\
-ErrorLog ${dir}${cname}_${servn}/logs/error.log \n\
-CustomLog ${dir}${cname}_${servn}/logs/requests.log combined \n\
-<Directory ${dir}${cname}_${servn}/public_html> \n\
-#Options Indexes FollowSymLinks MultiViews \n\
-Options FollowSymLinks \n\
-Options -Indexes \n\
-AllowOverride All \n\
-Order allow,deny \n\
-Allow from all \n\
-Require all granted \n\
-</Directory> \n\
-Alias /fileserver /fileserver \n\
-<Directory /fileserver> \n\
-<FilesMatch '\.(gif|jpe?g|png)$'> \n\
-AllowOverride None \n\
-Order allow,deny \n\
-Allow from all \n\
-Require all granted \n\
-</FilesMatch> \n\
-</Directory> \n\
-</VirtualHost>\n" \
- > /etc/httpd/sites-available/${cname}_$servn.conf
- RUN ln -s /etc/httpd/sites-available/${cname}_$servn.conf /etc/httpd/sites-enabled/${cname}_$servn.conf
+RUN yum install -y --skip-broken httpd php mod_php php-devel php-mysqlnd php-common php-pdo php-gd php-cli php-mcrypt php-mbstring php-xml php-imap php-curl php-soap mod_ssl pwgen
+
 RUN mkdir -p /data/php/session
 RUN mkdir -p /data/php/tmp
 RUN mkdir -p /fileserver

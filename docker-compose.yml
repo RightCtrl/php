@@ -1,0 +1,25 @@
+version: '2'
+services:
+  Apache2SSL:
+    image: rightctrl/php:70
+#    volumes:
+#     - ./webroot:/var/www/www_rightctrl.com/public_html
+#     - ./logs:/var/www/www_rightctrl.com/logs
+    environment:
+       servn: "rightctrl.com"
+       cname: "www"
+       TIMEZONE: 'Asia/Tokyo'
+       SUBJ: '/C=IN/ST=Kerala/L=MarketPlace/commonName=*.rightctrl.com'
+       PASSPHRASE: ""
+    ports:
+      - "90:80"
+      - "9443:443"
+    mem_limit: 3g
+    cpuset: 0,1
+    restart: always
+    ulimits:
+     nproc: 65535
+     core: 0
+     nofile:
+      soft: 20000
+      hard: 40000
