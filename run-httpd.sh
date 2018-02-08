@@ -50,7 +50,7 @@ CustomLog ${dir}${cname}_${servn}/logs/requests.log combined
 <Directory ${dir}${cname}_${servn}/public_html>
 #Options Indexes FollowSymLinks MultiViews
 Options FollowSymLinks
-Options MultiViews
+#Options MultiViews
 Options -Indexes
 AllowOverride All
 Order allow,deny
@@ -127,7 +127,7 @@ CustomLog ${dir}${cname}_${servn}/logs/requests.log combined
 <Directory ${dir}${cname}_${servn}/public_html>
 #Options Indexes FollowSymLinks MultiViews
 Options FollowSymLinks
-Options MultiViews
+#Options MultiViews
 Options -Indexes
 AllowOverride All
 Order allow,deny
