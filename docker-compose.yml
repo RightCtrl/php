@@ -1,7 +1,7 @@
 version: '2'
 services:
   Apache2SSL:
-    image: rightctrl/php:70
+    image: rightctrl/php:7.0
 #    volumes:
 #     - ./webroot:/var/www/www_rightctrl.com/public_html
 #     - ./logs:/var/www/www_rightctrl.com/logs

@@ -28,8 +28,8 @@ else
 echo "Web directory created with success !"
 fi
 
-chown -R ${user}:${user}  $dir${cname}_$servn
-chmod -R 755  $dir${cname}_$servn
+#chown -R ${user}:${user}  $dir${cname}_$servn
+#chmod -R 755  $dir${cname}_$servn
 mkdir /var/log/${cname}_$servn
 mkdir /etc/httpd/sites-available
 mkdir /etc/httpd/sites-enabled
@@ -50,6 +50,7 @@ CustomLog ${dir}${cname}_${servn}/logs/requests.log combined
 <Directory ${dir}${cname}_${servn}/public_html>
 #Options Indexes FollowSymLinks MultiViews
 Options FollowSymLinks
+Options MultiViews
 Options -Indexes
 AllowOverride All
 Order allow,deny
@@ -70,7 +71,7 @@ EOL
 
 # Enable SSL
 
-printf "IncludeOptional sites-enabled/ssl.${cname}_$servn.conf" >> /etc/httpd/conf/httpd.conf
+printf "IncludeOptional sites-enabled/ssl.${cname}_$servn.conf \n" >> /etc/httpd/conf/httpd.conf
 
 # the  certificate
 SSL_DIR="${dir}${cname}_${servn}/ssl"
@@ -126,6 +127,7 @@ CustomLog ${dir}${cname}_${servn}/logs/requests.log combined
 <Directory ${dir}${cname}_${servn}/public_html>
 #Options Indexes FollowSymLinks MultiViews
 Options FollowSymLinks
+Options MultiViews
 Options -Indexes
 AllowOverride All
 Order allow,deny
