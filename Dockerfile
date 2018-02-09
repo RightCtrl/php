@@ -26,7 +26,7 @@ RUN sed -i \
         -e 's#^;error_log = syslog#;error_log = syslog\nerror_log = /data/php/log/scripts-error.log#' \
         -e 's/^file_uploads = .*/file_uploads = On/' \
         -e 's/^upload_max_filesize = .*/upload_max_filesize = 50M/' \
-        -e 's/^allow_url_fopen = .*/allow_url_fopen = Off/' \
+        -e 's/^allow_url_fopen = .*/allow_url_fopen = On/' \
         -e 's/^allow_url_include = .*/allow_url_include  = Off/' \
         -e 's/^sql.safe_mode = .*/sql.safe_mode = On/' \
         -e 's/^post_max_size = .*/post_max_size = 100M/' \
