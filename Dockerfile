@@ -28,5 +28,5 @@ RUN set -xe \
     && rm ${OPENCART_FILE} \
     && chown -R www-data:www-data /var/www
     
-ENV TIMEZONE 'Asia/Kolkata'
+ENV TIMEZONE Asia/Kolkata
 RUN ln -snf /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && echo ${TIMEZONE} > /etc/timezone
